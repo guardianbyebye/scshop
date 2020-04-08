@@ -31,9 +31,11 @@ public class userController {
     @ResponseBody
     public ModelAndView login(String name,String pwd,HttpServletRequest request,ModelAndView modelAndView){
         boolean result=userService.checkUserNameAndPwd(name,pwd);
+        User user=userService.selectUserByUserName(name);
         HttpSession session=request.getSession();
         if (result) {
             session.setAttribute("userName", name);
+            session.setAttribute("user",user);
             modelAndView.addObject("username",name);
             modelAndView.setViewName("redirect:/");
             return modelAndView;
@@ -94,16 +96,7 @@ public class userController {
             return 1;
     }
 
-    /**
-     * 获取session中的值
-     */
-    @RequestMapping("/getUserNameFromSession")
-    @ResponseBody
-    public String getUserNameFromSession(HttpServletRequest request){
-        String userName = (String)request.getSession().getAttribute("userName");
-        System.out.println(userName);
-        return userName;
-    }
+
 
     /**
      * 获取用户信息

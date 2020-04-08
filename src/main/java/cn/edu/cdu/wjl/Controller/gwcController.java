@@ -1,6 +1,7 @@
 package cn.edu.cdu.wjl.Controller;
 
 import cn.edu.cdu.wjl.Entity.Gwc;
+import cn.edu.cdu.wjl.Entity.LeftJoin;
 import cn.edu.cdu.wjl.Entity.User;
 import cn.edu.cdu.wjl.service.gwcService;
 import cn.edu.cdu.wjl.service.userService;
@@ -8,9 +9,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.util.List;
 
 @Controller
 public class gwcController {
@@ -22,8 +25,14 @@ public class gwcController {
      * 查看购物车
      */
     @RequestMapping("/shoppingCart")
-    public String shoppingCart(){
-        return "shoppingCart";
+    public ModelAndView shoppingCart(ModelAndView modelAndView,HttpSession session){
+        String userName = (String) session.getAttribute("userName");
+        User user=userService.selectUserByUserName(userName);
+        int user_id=user.getUser_id();
+        List<LeftJoin> list=gwcService.selectByUserId(user_id);
+        modelAndView.addObject("list",list);
+        modelAndView.setViewName("shoppingCart");
+        return modelAndView;
     }
     /**
      * 添加商品到购物车

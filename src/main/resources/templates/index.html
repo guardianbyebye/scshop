@@ -184,23 +184,23 @@
                     <div class="container-wapper">
                         <ul class="zentimo-clone-mobile-menu zentimo-nav main-menu " id="menu-main-menu">
                             <li class="menu-item ">
-                                <a th:href="@{/}" class="zentimo-menu-item-title" title="Home">首页</a>
+                                <a th:href="@{/}" class="zentimo-menu-item-title" title="首页">首页</a>
                                 <span class="toggle-submenu"></span>
 
                             </li>
                             <li class="menu-item menu-item-has-children">
-                                <a th:href="@{/allGoods}" class="zentimo-menu-item-title" title="Shop">所有商品</a>
+                                <a th:href="@{/allGoods}" class="zentimo-menu-item-title" title="所有商品">所有商品</a>
                                 <span class="toggle-submenu"></span>
 
                             </li>
                             <li class="menu-item   item-megamenu">
-                                <a href="/shoppingCart" class="zentimo-menu-item-title" title="Pages">购物车</a>
+                                <a th:href="@{/shoppingCart(gwc_user_id=${session.user.user_id})}" class="zentimo-menu-item-title" title="购物车">购物车</a>
                                 <span class="toggle-submenu"></span>
 
                             </li>
                             <li class="menu-item  menu-item-has-children">
                                 <a href="inblog_right-siderbar.html" class="zentimo-menu-item-title"
-                                   title="Blogs">商品管理</a>
+                                   title="商品管理">商品管理</a>
                                 <span class="toggle-submenu"></span>
                                 <ul class="submenu">
                                     <li class="menu-item menu-item-has-children">

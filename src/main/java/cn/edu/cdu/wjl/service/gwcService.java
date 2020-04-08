@@ -1,6 +1,7 @@
 package cn.edu.cdu.wjl.service;
 
 import cn.edu.cdu.wjl.Entity.Gwc;
+import cn.edu.cdu.wjl.Entity.LeftJoin;
 
 import java.util.List;
 
@@ -12,5 +13,5 @@ public interface gwcService {
     /**
      * 查询购物车的商品
      */
-    List<Gwc> selectByUserId(int good_user_id);
+    List<LeftJoin> selectByUserId(int gwc_user_id);
 }
