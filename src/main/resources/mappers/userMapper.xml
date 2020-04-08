@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.edu.cdu.wjl.Dao.userDao">
+    <insert id="addUser" parameterType="User" >
+        insert INTO user(user_name,user_pwd,user_realname,user_tel,user_email)
+        values(#{user_name},#{user_pwd},#{user_realname},#{user_tel},#{user_email})
+    </insert>
+    <select id="selectUserByUserName" resultType="User">
+        select * from user where user_name=#{userName}
+    </select>
+    <select id="selectEmail" resultType="User">
+        select * from user where user_email=#{email}
+    </select>
+    <select id="selectPasswordByUserName" resultType="String">
+        select user_pwd from user where user_name=#{name}
+    </select>
+    <update id="updateUserInfo" parameterType="User">
+        update user set user_email=#{user_email},user_realname=#{user_realname},user_tel=#{user_tel},user_address=#{user_address} where user_name=#{user_name}
+    </update>
+    <update id="updateUserPwd" parameterType="String">
+        update user set user_pwd=#{oldPwd} where user_name=#{userName}
+    </update>
+</mapper>

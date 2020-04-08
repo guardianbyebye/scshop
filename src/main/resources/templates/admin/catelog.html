@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>二手后台管理</title>
+    <meta name="description" content="这是一个 index 页面">
+    <meta name="keywords" content="index">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+    <link rel="icon" type="image/png" href="/assets/i/favicon.png">
+    <link rel="apple-touch-icon-precomposed" href="/assets/i/app-icon72x72@2x.png">
+    <meta name="apple-mobile-web-app-title" content="Amaze UI" />
+    <script src="/assets/js/echarts.min.js"></script>
+    <link rel="stylesheet" href="/assets/css/amazeui.min.css" />
+    <link rel="stylesheet" href="/assets/css/amazeui.datatables.min.css" />
+    <link rel="stylesheet" href="/assets/css/app.css">
+    <script src="/assets/js/jquery.min.js"></script>
+
+</head>
+
+<body data-type="widgets">
+    <script src="/assets/js/theme.js"></script>
+    <div class="am-g tpl-g">
+        <!-- 头部 -->
+        <header>
+            <!-- logo -->
+            <div class="am-fl tpl-header-logo">
+                <a href="javascript:;"><h2 style="margin-top: 5%;">二手交易后台管理</h2></a>
+            </div>
+            <!-- 右侧内容 -->
+            <div class="tpl-header-fluid">
+                <!-- 搜索 -->
+                <!-- 其它功能-->
+                <div class="am-fr tpl-header-navbar">
+                    <ul>
+                        <!-- 欢迎语 -->
+                        <li class="am-text-sm tpl-header-navbar-welcome">
+                            <a href="javascript:;">欢迎你, <span th:text="${session.admin.admin_name}" ></span> </a>
+                        </li>
+
+                        <!-- 退出 -->
+                        <li class="am-text-sm">
+                            <a href="/admin">
+                                <span class="am-icon-sign-out"></span> 退出
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+        </header>
+        <!-- 侧边导航栏 -->
+        <div class="left-sidebar">
+            <!-- 菜单 -->
+            <ul class="sidebar-nav">
+                <li class="sidebar-nav-link">
+                    <a href="/admin/index1">
+                        <i class="am-icon-home sidebar-nav-link-logo"></i> 管理员管理
+                    </a>
+                </li>
+                <li class="sidebar-nav-link">
+                    <a href="/user/index" >
+                        <i class="am-icon-clone sidebar-nav-link-logo"></i> 用户管理
+                    </a>
+                </li>
+                <li class="sidebar-nav-link">
+                    <a href="/good/index">
+                        <i class="am-icon-calendar sidebar-nav-link-logo"></i> 商品管理
+                    </a>
+                </li>
+                 <li class="sidebar-nav-link">
+                    <a href="/catelog/index"  class="active">
+                        <i class="am-icon-calendar sidebar-nav-link-logo"></i> 分类管理
+                    </a>
+                </li>
+            </ul>
+        </div>
+
+
+
+        <!-- 内容区域 -->
+        <div class="tpl-content-wrapper">
+            <div class="row-content am-cf">
+                <div class="row">
+                    <div class="am-u-sm-12 am-u-md-12 am-u-lg-12">
+                    	<button type="button" class="am-btn btn am-btn-secondary">新增</button>
+                        <div class="widget am-cf">
+                            <div class="widget-head am-cf">
+                                <div class="widget-title am-fl">分类管理</div>
+                            </div>
+                            <div class="widget-body  widget-body-lg am-fr">
+
+                                <table width="100%" class="am-table am-table-compact am-table-striped tpl-table-black " id="example-r">
+                                    <thead>
+                                        <tr>
+                                            <th>id</th>
+                                            <th>分类名称</th>
+
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr class="even gradeC" th:each="line : ${list}">
+                                        	<td th:text="${line.catelog_id}"></td>
+                                            <td th:text="${line.catelog_name}"></td>
+                                            <td>
+                                                <div class="tpl-table-black-operation">
+                                                    <a class="btn" source="edit">
+                                                        		 编辑
+                                                    </a>
+                                                    <a th:href="@{/catelog/delete(catelog_id=${line.catelog_id})}" class="tpl-table-black-operation-del">
+                                                         		 删除
+                                                    </a>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <!-- more data -->
+                                    </tbody>
+                                </table>
+                                <div class="pagination clearfix style2">
+                                    <div class="nav-link">
+                                        <a href="/catelog/index?pageNum=1" class="page-numbers"><i class="icon fa fa-angle-left"
+                                                                            aria-hidden="true"></i>首页</a>
+                                        <a  th:if="${pageInfo.hasPreviousPage}" th:href="@{/catelog/index(pageNum=${pageInfo.pageNum}-1)}" class="page-numbers">上一页</a>
+
+                                        <a th:if="${pageInfo.hasNextPage}" th:href="@{/catelog/index(pageNum=${pageInfo.pageNum}+1)}" class="page-numbers">下一页</a>
+                                        <a th:href="@{/catelog/index(pageNum=${pageInfo.pages})}">尾页</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    
+    
+    <div class="am-modal am-modal-no-btn" tabindex="-1" id="your-modal">
+  <div class="am-modal-dialog">
+    <div class="am-modal-hd">编辑
+      <a href="javascript: void(0)" class="am-close am-close-spin" data-am-modal-close>&times;</a>
+    </div>
+    <div class="am-modal-bd">
+      	<form enctype="multipart/form-data" class="am-form am-form-horizontal" action="/catelog/update" method="post">
+      	<input type="hidden" id="form_id" name="catelog_id">
+		  <div class="am-form-group">
+		    <label for="doc-ipt-3" class="am-u-sm-2 am-form-label">分类名称</label>
+		    <div class="am-u-sm-10">
+		      <input type="text" id="form_name" name="catelog_name" placeholder="输入你的分类名称">
+		    </div>
+		  </div>
+		  <div class="am-form-group">
+		    <div class="am-u-sm-12">
+		      <button type="submit" class="am-btn am-btn-danger">保存</button>
+		      <button type="button" class="btn am-btn am-btn-default js-modal-close">取消</button>
+		    </div>
+		  </div>
+		</form>
+    </div>
+  </div>
+</div>
+
+    <script src="/assets/js/amazeui.min.js"></script>
+    <script src="/assets/js/amazeui.datatables.min.js"></script>
+    <script src="/assets/js/dataTables.responsive.min.js"></script>
+    <script src="/assets/js/app.js"></script>
+<script>
+  $(function() {
+    var $modal = $('#your-modal');
+
+    $('.btn').on('click', function(e) {
+      $("#form_id").val(0);
+      $("#form_name").val("");
+      
+      var $target = $(e.target);
+      var source = $target.attr("source");
+      if(source == "edit"){
+          var td = $target.parents("td").siblings("td");
+          td && $("#form_id").val($(td[0]).text().trim());
+          td && $("#form_name").val($(td[1]).text().trim());
+      }
+      
+      if (($target).hasClass('js-modal-open')) {
+        $modal.modal();
+      } else if (($target).hasClass('js-modal-close')) {
+        $modal.modal('close');
+      } else {
+        $modal.modal('toggle');
+      }
+    });
+  });
+</script>
+</body>
+
+</html>

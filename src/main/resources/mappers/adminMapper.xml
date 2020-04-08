@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.edu.cdu.wjl.Dao.adminDao">
+   <select id="selectAdminPwdByName" resultType="String">
+       select admin_pwd from admin where admin_name=#{admin_name}
+   </select>
+    <select id="selectAllAdmin" resultType="Admin">
+        select * from admin
+    </select>
+    <select id="selectAllUsers" resultType="User">
+        select * from user
+    </select>
+    <delete id="deleteUserById" parameterType="int">
+        delete from user where user_id=#{user_id}
+    </delete>
+    <select id="selectAllGoods" resultType="Good">
+        select * from good
+    </select>
+    <insert id="addAdmin" parameterType="String">
+        insert into admin(admin_name,admin_pwd)
+        values (#{admin_name},#{admin_pwd})
+    </insert>
+    <select id="selectAdminByName" parameterType="String" resultType="Admin">
+        select * from admin where admin_name=#{admin_name}
+    </select>
+    <update id="updateAdmin" parameterType="Admin">
+    update admin set
+    <trim  suffixOverrides="," >
+        <if test="admin_name != null and admin_name != ''">
+            admin_name=#{admin_name},
+        </if>
+        <if test="admin_pwd != null and admin_pwd != ''">
+            admin_pwd=#{admin_pwd},
+        </if>
+    </trim> where admin_id=#{admin_id}
+    </update>
+    <delete id="deleteAdminById" parameterType="int">
+        delete from admin where admin_id=#{admin_id}
+
+    </delete>
+</mapper>

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.edu.cdu.wjl.Dao.catelogDao">
+    <select id="selectAllCatelogs" resultType="Catelog">
+        select * from catelog
+    </select>
+    <delete id="deleteCatelog" parameterType="int">
+        delete from catelog where catelog_id=#{catelog_id}
+    </delete>
+    <insert id="insertCatelog" parameterType="Catelog">
+        insert into catelog (catelog_id,catelog_name)
+	values (0,#{catelog_name});
+    </insert>
+    <update id="updateCatelog" parameterType="Catelog">
+        update catelog set
+        <if test="catelog_name != null and catelog_name != ''">
+            catelog_name=#{catelog_name}
+        </if>
+        where catelog_id=#{catelog_id}
+    </update>
+    <select id="selectCatelogByName" resultType="Catelog">
+        select * from catelog where catelog_name=#{catelog_name}
+    </select>
+</mapper>

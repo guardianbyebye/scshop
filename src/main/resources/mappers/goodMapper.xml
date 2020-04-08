@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.edu.cdu.wjl.Dao.goodDao">
+    <insert id="insertGood" parameterType="Good" >
+        insert INTO good (good_name,good_price,good_number,good_description,good_photo,good_user_id,good_catelog_id)
+        values(#{good_name},#{good_price},#{good_number},#{good_description},#{good_photo},#{good_user_id},#{good_catelog_id})
+    </insert>
+    <select id="findGoodByUserId" parameterType="int" resultType="Good">
+        select * from good where good_user_id=#{good_user_id}
+    </select>
+    <select id="selectGoodByGoodId" parameterType="int" resultType="Good">
+        select * from good where good_id=#{good_id}
+    </select>
+    <update id="updateGoodInfoByGoodId" parameterType="Good">
+        update good set good_name=#{good_name},good_price=#{good_price},good_number=#{good_number},good_description=#{good_description},good_photo=#{good_photo} where
+        good_id=#{good_id}
+    </update>
+    <select id="selectAllGoods" resultType="Good">
+        select * from good
+    </select>
+    <delete id="deleteGoodById" parameterType="int">
+        delete from good where good_id=#{good_id}
+    </delete>
+
+    <update id="shangjia" parameterType="int">
+        update good set good_status=0 where good_id=#{good_id}
+    </update>
+    <update id="xiajia" parameterType="int">
+        update good set good_status=1 where good_id=#{good_id}
+    </update>
+    <select id="goodStatus0" resultType="Good">
+        select * from good where good_status=0
+    </select>
+</mapper>
