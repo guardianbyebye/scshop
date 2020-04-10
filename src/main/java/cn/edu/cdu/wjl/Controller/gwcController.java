@@ -5,6 +5,7 @@ import cn.edu.cdu.wjl.Entity.LeftJoin;
 import cn.edu.cdu.wjl.Entity.User;
 import cn.edu.cdu.wjl.service.gwcService;
 import cn.edu.cdu.wjl.service.userService;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -50,7 +51,16 @@ public class gwcController {
         gwcService.addGoodsToGWC(gwc);
 
             return "redirect:/shoppingCart";
-
-
+    }
+    /**
+     * 删除购物车中商品
+     */
+    @RequestMapping("/deleteGoodById")
+    public String deleteGwcGood(@Param("good_id") int good_id, HttpSession session){
+        String userName = (String) session.getAttribute("userName");
+        User user = userService.selectUserByUserName(userName);
+        Integer user_id=user.getUser_id();
+        gwcService.deleteByGoodId(good_id,user_id);
+        return "redirect:/shoppingCart";
     }
 }

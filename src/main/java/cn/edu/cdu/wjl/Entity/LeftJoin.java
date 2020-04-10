@@ -1,6 +1,7 @@
 package cn.edu.cdu.wjl.Entity;
 
 public class LeftJoin {
+    private int good_id;
     private String good_name;
     private String good_price;
     private String good_photo;
@@ -27,5 +28,13 @@ public class LeftJoin {
 
     public void setGood_photo(String good_photo) {
         this.good_photo = good_photo;
+    }
+
+    public int getGood_id() {
+        return good_id;
+    }
+
+    public void setGood_id(int good_id) {
+        this.good_id = good_id;
     }
 }

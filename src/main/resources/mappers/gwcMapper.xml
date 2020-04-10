@@ -8,6 +8,7 @@
     </insert>
     <select id="selectByUserId" parameterType="int" resultType="LeftJoin">
        SELECT
+        a.good_id,
 	    a.good_name,
 	    a.good_price,
 	    a.good_photo
@@ -17,4 +18,7 @@
        WHERE
 	    b.gwc_good_id = any(select gwc.gwc_good_id FROM gwc  WHERE gwc.gwc_user_id=#{gwc_user_id})
     </select>
+    <delete id="deleteByGoodId" parameterType="int">
+        delete from gwc where gwc_good_id=#{0} and gwc_user_id=#{1}
+    </delete>
 </mapper>

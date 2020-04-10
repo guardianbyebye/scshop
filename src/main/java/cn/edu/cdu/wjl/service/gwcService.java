@@ -14,4 +14,9 @@ public interface gwcService {
      * 查询购物车的商品
      */
     List<LeftJoin> selectByUserId(int gwc_user_id);
+    /**
+     * 删除购物车中商品
+     */
+    boolean deleteByGoodId(int good_id,int user_id);
+
 }

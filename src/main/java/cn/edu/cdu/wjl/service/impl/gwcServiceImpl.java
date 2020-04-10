@@ -23,4 +23,9 @@ public class gwcServiceImpl implements gwcService {
     public List<LeftJoin> selectByUserId(int gwc_user_id) {
         return gwcDao.selectByUserId(gwc_user_id);
     }
+
+    @Override
+    public boolean deleteByGoodId(int good_id,int user_id) {
+        return gwcDao.deleteByGoodId(good_id,user_id);
+    }
 }

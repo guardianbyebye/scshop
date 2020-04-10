@@ -14,4 +14,8 @@ public interface gwcDao {
      boolean addGoodToGWC(Gwc gwc);
 
      List<LeftJoin> selectByUserId(int good_user_id);
+
+     boolean deleteByGoodId(int good_id,int user_id);
+
+     boolean selectByGoodId(int good_id);
 }
