@@ -5,6 +5,8 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
 @Mapper
 public interface userDao {
@@ -38,4 +40,8 @@ public interface userDao {
      * @return
      */
     boolean updateUserPwd(String userName,String password);
+    /**
+     * 搜索用户
+     */
+    List<User> selectUser(String user_name);
 }

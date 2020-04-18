@@ -45,4 +45,20 @@ public interface goodDao {
      * 查询上架中的商品
      */
     List<Good> goodStatus0();
+    /**
+     * 更改商品为推荐
+     */
+    boolean isRecommend(int good_id);
+    /**
+     * 更改商品为不推荐
+     */
+    boolean notRecommend(int good_id);
+    /**
+     * 查询推荐商品
+     */
+    List<Good> recommendGoods();
+    /**
+     * 查找商品
+     */
+    List<Good> selectGood(String good_name);
 }

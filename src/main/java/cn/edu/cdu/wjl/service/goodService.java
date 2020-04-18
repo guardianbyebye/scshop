@@ -43,5 +43,17 @@ public interface goodService {
      * 查询上架中商品
      */
     List<Good> goodStatus0();
+    /**
+     * 更改为推荐商品
+     */
+    boolean isRecommend(int good_id);
+    /**
+     * 更改为不推荐
+     */
+    boolean notRecommend(int good_id);
+    /**
+     * 查询推荐商品
+     */
+    List<Good> selectRecommendGood();
 
 }

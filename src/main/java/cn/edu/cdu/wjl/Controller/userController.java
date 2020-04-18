@@ -133,7 +133,7 @@ public class userController {
     @ResponseBody
     public ModelAndView logout(ModelAndView modelAndView,HttpServletRequest request){
         request.getSession().invalidate();
-        modelAndView.setViewName("index");
+        modelAndView.setViewName("redirect:/");
         return modelAndView;
     }
     /**

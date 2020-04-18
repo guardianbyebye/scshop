@@ -58,5 +58,20 @@ public class goodServiceImpl implements goodService {
         return goodDao.goodStatus0();
     }
 
+    @Override
+    public boolean isRecommend(int good_id) {
+        return goodDao.isRecommend(good_id);
+    }
+
+    @Override
+    public boolean notRecommend(int good_id) {
+        return goodDao.notRecommend(good_id);
+    }
+
+    @Override
+    public List<Good> selectRecommendGood() {
+        return goodDao.recommendGoods();
+    }
+
 
 }

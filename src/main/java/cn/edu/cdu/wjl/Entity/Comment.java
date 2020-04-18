@@ -1,11 +1,13 @@
 package cn.edu.cdu.wjl.Entity;
 
-public class comment {
+import java.util.Date;
+
+public class Comment {
     private int comment_id;//评论id
     private String comment_text;//评论内容
     private int comment_good_id;//商品id
     private int comment_user_id;//用户id
-
+    private Date comment_time;
     public int getComment_id() {
         return comment_id;
     }
@@ -36,5 +38,13 @@ public class comment {
 
     public void setComment_user_id(int comment_user_id) {
         this.comment_user_id = comment_user_id;
+    }
+
+    public Date getComment_time() {
+        return comment_time;
+    }
+
+    public void setComment_time(Date comment_time) {
+        this.comment_time = comment_time;
     }
 }

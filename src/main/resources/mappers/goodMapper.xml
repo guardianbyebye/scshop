@@ -2,8 +2,8 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="cn.edu.cdu.wjl.Dao.goodDao">
     <insert id="insertGood" parameterType="Good" >
-        insert INTO good (good_name,good_price,good_number,good_description,good_photo,good_user_id,good_catelog_id)
-        values(#{good_name},#{good_price},#{good_number},#{good_description},#{good_photo},#{good_user_id},#{good_catelog_id})
+        insert INTO good (good_name,good_price,good_number,good_description,good_photo,good_user_id,good_catelog_id,good_isRecommend)
+        values(#{good_name},#{good_price},#{good_number},#{good_description},#{good_photo},#{good_user_id},#{good_catelog_id},1)
     </insert>
     <select id="findGoodByUserId" parameterType="int" resultType="Good">
         select * from good where good_user_id=#{good_user_id}
@@ -30,5 +30,17 @@
     </update>
     <select id="goodStatus0" resultType="Good">
         select * from good where good_status=0
+    </select>
+    <update id="isRecommend" parameterType="int">
+        update good set good_isRecommend=0 where good_id=#{good_id}
+    </update>
+    <update id="notRecommend" parameterType="int">
+        update good set good_isRecommend=1 where good_id=#{good_id}
+    </update>
+    <select id="recommendGoods" resultType="Good">
+        select * from good where good_isRecommend=0
+    </select>
+    <select id="selectGood" parameterType="String" resultType="Good">
+        select * from good where good_name like CONCAT('%',#{good_name},'%');
     </select>
 </mapper>

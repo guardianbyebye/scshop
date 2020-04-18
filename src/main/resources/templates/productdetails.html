@@ -29,35 +29,10 @@
         <div class="container">
             <div class="top-bar-left">
                 <div class="header-message">
-                    Welcome to our online store!
+                    欢迎来到二手交易平台
                 </div>
             </div>
             <div class="top-bar-right">
-                <div class="header-language">
-                    <div class="zentimo-language zentimo-dropdown">
-                        <a href="#" class="active language-toggle" data-zentimo="zentimo-dropdown">
-								<span>
-									English (USD)
-								</span>
-                        </a>
-                        <ul class="zentimo-submenu">
-                            <li class="switcher-option">
-                                <a href="#">
-										<span>
-											French (EUR)
-										</span>
-                                </a>
-                            </li>
-                            <li class="switcher-option">
-                                <a href="#">
-										<span>
-											Japanese (JPY)
-										</span>
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
                 <ul class="header-user-links">
                     <li id="loginBtn" >
                         <a th:href="@{/login1}" th:if="${session.userName} == null">登录/注册</a>
@@ -482,9 +457,9 @@
                     <div class="details-product">
                         <div class="details-thumd">
                             <div class="image-preview-container image-thick-box image_preview_container">
-                                <img id="img_zoom" data-zoom-image="assets/images/details-item-1.jpg"
-                                     src="assets/images/details-item-1.jpg" alt="img">
-                                <a href="#" class="btn-zoom open_qv"><i class="fa fa-search" aria-hidden="true"></i></a>
+                                <img id="img_zoom"
+                                     th:src="@{/assets/images/{goodPhoto}(goodPhoto=${good.good_photo})}" alt="img">
+
                             </div>
 
                         </div>
@@ -503,31 +478,34 @@
                             </div>
 
                             <div class="group-button">
-
+                                <form action="/orderCreate" method="post">
                                 <div class="quantity-add-to-cart">
                                     <div class="quantity">
                                         <div class="control">
                                             <a class="btn-number qtyminus quantity-minus" href="#">-</a>
                                             <input type="text" data-step="1" data-min="0" value="1" title="Qty"
-                                                   class="input-qty qty" size="4">
+                                                   class="input-qty qty" size="4" name="buy_number">
+                                            <input th:value="${good.good_id}" type="hidden" name="good_id">
                                             <a href="#" class="btn-number qtyplus quantity-plus">+</a>
                                         </div>
                                     </div>
-                                    <button class="single_add_to_cart_button button">Add to cart</button>
+                                    <button class="button">购买</button>
                                 </div>
+                                </form>
+                                <button class="single_add_to_cart_button button">Add to cart</button>
                             </div>
                         </div>
                     </div>
                     <div class="tab-details-product">
                         <ul class="tab-link">
                             <li class="active">
-                                <a data-toggle="tab" aria-expanded="true" href="#product-descriptions">Descriptions </a>
+                                <a data-toggle="tab" aria-expanded="true" href="#product-descriptions">商品介绍 </a>
                             </li>
                             <li class="">
-                                <a data-toggle="tab" aria-expanded="true" href="#information">Information </a>
+                                <a data-toggle="tab" aria-expanded="true" href="#information">留言板 </a>
                             </li>
                             <li class="">
-                                <a data-toggle="tab" aria-expanded="true" href="#reviews">Reviews</a>
+                                <a data-toggle="tab" aria-expanded="true" href="#reviews">评论</a>
                             </li>
                         </ul>
                         <div class="tab-container">
@@ -538,20 +516,60 @@
 
                             </div>
                             <div id="information" class="tab-panel">
-                                <table class="table table-bordered">
-                                    <tr>
-                                        <td>Size</td>
-                                        <td> XS / S / M / L</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Color</td>
-                                        <td>White/ Black/ Teal/ Brown</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Properties</td>
-                                        <td>Colorful Dress</td>
-                                    </tr>
-                                </table>
+                                <div class="reviews-tab">
+                                    <div class="comments">
+                                        <h2 class="reviews-title">
+                                           留言板
+                                        </h2>
+                                        <ol class="commentlist">
+                                            <li class="conment" th:each="msg:${message}">
+                                                <div class="conment-container">
+
+                                                    <div class="comment-text">
+
+                                                        <p class="meta">
+                                                            <strong class="author"><span th:text="${msg.message_user_name}"></span></strong>
+                                                            <span>-</span>
+                                                            <span class="time" th:text="${msg.message_time}"></span>
+                                                        </p>
+                                                        <div class="description">
+                                                            <p th:text="${msg.message_texts}"></p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </li>
+                                        </ol>
+                                    </div>
+                                    <div class="review_form_wrapper">
+                                        <div class="review_form">
+                                            <div class="comment-respond">
+                                                <span class="comment-reply-title">Add a review </span>
+                                                <form class="comment-form-review" action="addMessage">
+                                                    <p class="comment-notes">
+                                                        <span class="email-notes">Your email address will not be published.</span>
+                                                        Required fields are marked
+                                                        <span class="required">*</span>
+                                                    </p>
+
+                                                    <p class="comment-form-comment">
+                                                        <label>
+                                                            你的留言
+                                                            <span class="required">*</span>
+                                                        </label>
+                                                        <textarea title="留言" id="message_text" name="message_text" cols="45"
+                                                                  rows="8"></textarea>
+                                                    </p>
+                                                    <input type="hidden" th:value="${good.good_id}" name="message_good_id">
+                                                    <input type="hidden" th:value="${session.userName}" name="message_user_name">
+                                                    <p class="form-submit">
+                                                        <input name="submit" type="submit" id="submitMessage" class="submit"
+                                                               value="提交">
+                                                    </p>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                             <div id="reviews" class="tab-panel">
                                 <div class="reviews-tab">
@@ -646,515 +664,14 @@
                             </div>
                         </div>
                     </div>
-                    <div style="clear: left;"></div>
-                    <div class="related products product-grid">
-                        <h2 class="product-grid-title">You may also like</h2>
-                        <div class="owl-products owl-slick equal-container nav-center"
-                             data-slick='{"autoplay":false, "autoplaySpeed":1000, "arrows":true, "dots":false, "infinite":true, "speed":800, "rows":1}'
-                             data-responsive='[{"breakpoint":"2000","settings":{"slidesToShow":4}},{"breakpoint":"1200","settings":{"slidesToShow":3}},{"breakpoint":"992","settings":{"slidesToShow":2}},{"breakpoint":"480","settings":{"slidesToShow":1}}]'>
-                            <div class="product-item">
-                                <div class="product-inner equal-element">
-                                    <div class="product-top">
-                                        <div class="flash">
-												<span class="onnew">
-													<span class="text">
-														new
-													</span>
-												</span>
-                                        </div>
-                                        <div class="yith-wcwl-add-to-wishlist">
-                                            <div class="yith-wcwl-add-button">
-                                                <a href="#">Add to Wishlist</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="product-thumb">
-                                        <div class="thumb-inner">
-                                            <a href="#">
-                                                <img src="assets/images/product-item-1.jpg" alt="img">
-                                            </a>
-                                        </div>
-                                        <a href="#" class="button quick-wiew-button">Quick View</a>
-                                    </div>
-                                    <div class="product-info">
-                                        <h5 class="product-name product_title">
-                                            <a href="#">Ring Video Doorbell</a>
-                                        </h5>
-                                        <div class="group-info">
-                                            <div class="stars-rating">
-                                                <div class="star-rating">
-                                                    <span class="star-3"></span>
-                                                </div>
-                                                <div class="count-star">
-                                                    (3)
-                                                </div>
-                                            </div>
-                                            <div class="price">
-                                                <del>
-                                                    $65
-                                                </del>
-                                                <ins>
-                                                    $45
-                                                </ins>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="loop-form-add-to-cart">
-                                        <form class="cart">
-                                            <div class="single_variation_wrap">
-                                                <div class="quantity">
-                                                    <div class="control">
-                                                        <a class="btn-number qtyminus quantity-minus" href="#">-</a>
-                                                        <input type="text" data-step="1" data-min="0" value="1"
-                                                               title="Qty" class="input-qty qty" size="4">
-                                                        <a href="#" class="btn-number qtyplus quantity-plus">+</a>
-                                                    </div>
-                                                </div>
-                                                <button class="single_add_to_cart_button button">Add to cart</button>
-                                            </div>
-                                            <div class="variations">
-                                                <div class="variation">
-                                                    <label class="variation-label">
-                                                        Capacity:
-                                                    </label>
-                                                    <div class="variation-value">
-                                                        <a href="#" class="change-value text">
-                                                            <span>10ml</span>
-                                                        </a>
-                                                        <a href="#" class="change-value text">
-                                                            <span>20ml</span>
-                                                        </a>
-                                                        <a href="#" class="change-value text">
-                                                            <span>50ml</span>
-                                                        </a>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </form>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="product-item">
-                                <div class="product-inner equal-element">
-                                    <div class="product-top">
-                                        <div class="flash">
-												<span class="onnew">
-													<span class="text">
-														new
-													</span>
-												</span>
-                                        </div>
-                                        <div class="yith-wcwl-add-to-wishlist">
-                                            <div class="yith-wcwl-add-button">
-                                                <a href="#">Add to Wishlist</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="product-thumb">
-                                        <div class="thumb-inner">
-                                            <a href="#">
-                                                <img src="assets/images/product-item-2.jpg" alt="img">
-                                            </a>
-                                        </div>
-                                        <a href="#" class="button quick-wiew-button">Quick View</a>
-                                    </div>
-                                    <div class="product-info">
-                                        <h5 class="product-name product_title">
-                                            <a href="#">Ring Video Doorbell</a>
-                                        </h5>
-                                        <div class="group-info">
-                                            <div class="stars-rating">
-                                                <div class="star-rating">
-                                                    <span class="star-3"></span>
-                                                </div>
-                                                <div class="count-star">
-                                                    (3)
-                                                </div>
-                                            </div>
-                                            <div class="price">
-                                                <del>
-                                                    $65
-                                                </del>
-                                                <ins>
-                                                    $45
-                                                </ins>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="loop-form-add-to-cart">
-                                        <form class="cart">
-                                            <div class="single_variation_wrap">
-                                                <div class="quantity">
-                                                    <div class="control">
-                                                        <a class="btn-number qtyminus quantity-minus" href="#">-</a>
-                                                        <input type="text" data-step="1" data-min="0" value="1"
-                                                               title="Qty" class="input-qty qty" size="4">
-                                                        <a href="#" class="btn-number qtyplus quantity-plus">+</a>
-                                                    </div>
-                                                </div>
-                                                <button class="single_add_to_cart_button button">Add to cart</button>
-                                            </div>
-                                            <div class="variations">
-                                                <div class="variation">
-                                                    <label class="variation-label">
-                                                        Capacity:
-                                                    </label>
-                                                    <div class="variation-value">
-                                                        <a href="#" class="change-value text">
-                                                            <span>10ml</span>
-                                                        </a>
-                                                        <a href="#" class="change-value text">
-                                                            <span>20ml</span>
-                                                        </a>
-                                                        <a href="#" class="change-value text">
-                                                            <span>50ml</span>
-                                                        </a>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </form>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="product-item">
-                                <div class="product-inner equal-element">
-                                    <div class="product-top">
-                                        <div class="flash">
-												<span class="onnew">
-													<span class="text">
-														new
-													</span>
-												</span>
-                                        </div>
-                                        <div class="yith-wcwl-add-to-wishlist">
-                                            <div class="yith-wcwl-add-button">
-                                                <a href="#">Add to Wishlist</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="product-thumb">
-                                        <div class="thumb-inner">
-                                            <a href="#">
-                                                <img src="assets/images/product-item-3.jpg" alt="img">
-                                            </a>
-                                        </div>
-                                        <a href="#" class="button quick-wiew-button">Quick View</a>
-                                    </div>
-                                    <div class="product-info">
-                                        <h5 class="product-name product_title">
-                                            <a href="#">Ring Video Doorbell</a>
-                                        </h5>
-                                        <div class="group-info">
-                                            <div class="stars-rating">
-                                                <div class="star-rating">
-                                                    <span class="star-3"></span>
-                                                </div>
-                                                <div class="count-star">
-                                                    (3)
-                                                </div>
-                                            </div>
-                                            <div class="price">
-                                                <del>
-                                                    $65
-                                                </del>
-                                                <ins>
-                                                    $45
-                                                </ins>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="loop-form-add-to-cart">
-                                        <form class="cart">
-                                            <div class="single_variation_wrap">
-                                                <div class="quantity">
-                                                    <div class="control">
-                                                        <a class="btn-number qtyminus quantity-minus" href="#">-</a>
-                                                        <input type="text" data-step="1" data-min="0" value="1"
-                                                               title="Qty" class="input-qty qty" size="4">
-                                                        <a href="#" class="btn-number qtyplus quantity-plus">+</a>
-                                                    </div>
-                                                </div>
-                                                <button class="single_add_to_cart_button button">Add to cart</button>
-                                            </div>
-                                            <div class="variations">
-                                                <div class="variation">
-                                                    <label class="variation-label">
-                                                        Capacity:
-                                                    </label>
-                                                    <div class="variation-value">
-                                                        <a href="#" class="change-value text">
-                                                            <span>10ml</span>
-                                                        </a>
-                                                        <a href="#" class="change-value text">
-                                                            <span>20ml</span>
-                                                        </a>
-                                                        <a href="#" class="change-value text">
-                                                            <span>50ml</span>
-                                                        </a>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </form>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="product-item product-type-variable">
-                                <div class="product-inner equal-element">
-                                    <div class="product-top">
-                                        <div class="flash">
-												<span class="onnew">
-													<span class="text">
-														new
-													</span>
-												</span>
-                                        </div>
-                                        <div class="yith-wcwl-add-to-wishlist">
-                                            <div class="yith-wcwl-add-button">
-                                                <a href="#">Add to Wishlist</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="product-thumb">
-                                        <div class="thumb-inner">
-                                            <a href="#">
-                                                <img src="assets/images/product-item-4.jpg" alt="img">
-                                            </a>
-                                        </div>
-                                        <a href="#" class="button quick-wiew-button">Quick View</a>
-                                    </div>
-                                    <div class="product-info">
-                                        <h5 class="product-name product_title">
-                                            <a href="#">Ring Video Doorbell</a>
-                                        </h5>
-                                        <div class="group-info">
-                                            <div class="stars-rating">
-                                                <div class="star-rating">
-                                                    <span class="star-3"></span>
-                                                </div>
-                                                <div class="count-star">
-                                                    (3)
-                                                </div>
-                                            </div>
-                                            <div class="price">
-                                                <del>
-                                                    $65
-                                                </del>
-                                                <ins>
-                                                    $45
-                                                </ins>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="loop-form-add-to-cart">
-                                        <form class="cart">
-                                            <div class="single_variation_wrap">
-                                                <div class="quantity">
-                                                    <div class="control">
-                                                        <a class="btn-number qtyminus quantity-minus" href="#">-</a>
-                                                        <input type="text" data-step="1" data-min="0" value="1"
-                                                               title="Qty" class="input-qty qty" size="4">
-                                                        <a href="#" class="btn-number qtyplus quantity-plus">+</a>
-                                                    </div>
-                                                </div>
-                                                <button class="single_add_to_cart_button button">Add to cart</button>
-                                            </div>
-                                            <div class="variations">
-                                                <div class="variation">
-                                                    <label class="variation-label">
-                                                        Capacity:
-                                                    </label>
-                                                    <div class="variation-value">
-                                                        <a href="#" class="change-value text">
-                                                            <span>10ml</span>
-                                                        </a>
-                                                        <a href="#" class="change-value text">
-                                                            <span>20ml</span>
-                                                        </a>
-                                                        <a href="#" class="change-value text">
-                                                            <span>50ml</span>
-                                                        </a>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </form>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+
+
                 </div>
             </div>
         </div>
     </div>
 </div>
-<footer class="footer style7">
-    <div class="container">
-        <div class="container-wapper">
-            <div class="row">
-                <div class="box-footer col-xs-12 col-sm-6 col-md-6 col-lg-4">
-                    <div class="widget-box">
-                        <div class="single-img">
-                            <a href="index.html"><img src="assets/images/logo.png" alt="img"></a>
-                        </div>
-                        <ul class="menu">
-                            <li class="menu-item">
-                                <a href="#"><span class="flaticon-placeholder"></span>45 Grand Central Terminal New
-                                    York,NY 1017 United State USA</a>
-                            </li>
-                            <li class="menu-item">
-                                <a href="#"><span class="flaticon-phone-call"></span>(+123) 456 789 - (+123) 666 888</a>
-                            </li>
-                            <li class="menu-item">
-                                <a href="#"><span class="fa fa-envelope-o"></span>Contact@yourcompany.com</a>
-                            </li>
-                            <li class="menu-item">
-                                <a href="#"><span class="flaticon-clock"></span>Mon-Sat 9:00pm - 5:00pm Sun : Closed</a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="box-footer col-xs-12 col-sm-6 col-md-6 col-lg-2">
-                    <div class="zentimo-custommenu default">
-                        <h2 class="widgettitle">Quick Menu</h2>
-                        <ul class="menu">
-                            <li class="menu-item">
-                                <a href="#">Audio & Theater</a>
-                            </li>
-                            <li class="menu-item">
-                                <a href="#">Photo & Video</a>
-                            </li>
-                            <li class="menu-item">
-                                <a href="#">Headphones</a>
-                            </li>
-                            <li class="menu-item">
-                                <a href="#">Wireless Speakers</a>
-                            </li>
-                            <li class="menu-item">
-                                <a href="#">Electronics</a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="box-footer col-xs-12 col-sm-6 col-md-6 col-lg-2">
-                    <div class="zentimo-custommenu default">
-                        <h2 class="widgettitle">Information</h2>
-                        <ul class="menu">
-                            <li class="menu-item">
-                                <a href="#">FAQs</a>
-                            </li>
-                            <li class="menu-item">
-                                <a href="#">Track Order</a>
-                            </li>
-                            <li class="menu-item">
-                                <a href="#">Delivery</a>
-                            </li>
-                            <li class="menu-item">
-                                <a href="#">Contact Us</a>
-                            </li>
-                            <li class="menu-item">
-                                <a href="#">Return</a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="box-footer col-xs-12 col-sm-6 col-md-6 col-lg-4">
-                    <div class="zentimo-newsletter style1">
-                        <div class="newsletter-head">
-                            <h3 class="title">Newsletter</h3>
-                        </div>
-                        <div class="newsletter-form-wrap">
-                            <div class="list">
-                                Get notified of new products, limited releases, and more.
-                            </div>
-                            <input type="email" class="input-text email email-newsletter"
-                                   placeholder="Your email letter">
-                            <button class="button btn-submit submit-newsletter">SUBSCRIBE</button>
-                        </div>
-                    </div>
-                    <div class="zentimo-socials">
-                        <ul class="socials">
-                            <li>
-                                <a href="#" class="social-item" target="_blank">
-                                    <i class="icon fa fa-facebook"></i>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#" class="social-item" target="_blank">
-                                    <i class="icon fa fa-twitter"></i>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#" class="social-item" target="_blank">
-                                    <i class="icon fa fa-instagram"></i>
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-sm-12 border-custom">
-                    <span></span>
-                </div>
-            </div>
-            <div class="footer-end">
-                <div class="row">
-                    <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
-                        <div class="coppyright">
-                            Copyright © 2019
-                            <a href="http://www.bootstrapmb.com">Zentimo</a>
-                            . All rights reserved
-                        </div>
-                    </div>
-                    <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
-                        <div class="zentimo-payment">
-                            <img src="assets/images/payments.png" alt="img">
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</footer>
-<div class="footer-device-mobile">
-    <div class="wapper">
-        <div class="footer-device-mobile-item device-home">
-            <a href="index.html">
-					<span class="icon">
-						<i class="fa fa-home" aria-hidden="true"></i>
-					</span>
-                Home
-            </a>
-        </div>
-        <div class="footer-device-mobile-item device-home device-wishlist">
-            <a href="#">
-					<span class="icon">
-						<i class="fa fa-heart" aria-hidden="true"></i>
-					</span>
-                Wishlist
-            </a>
-        </div>
-        <div class="footer-device-mobile-item device-home device-cart">
-            <a href="#">
-					<span class="icon">
-						<i class="flaticon-online-shopping-cart" aria-hidden="true"></i>
-						<span class="count-icon">
-							0
-						</span>
-					</span>
-                <span class="text">Cart</span>
-            </a>
-        </div>
-        <div class="footer-device-mobile-item device-home device-user">
-            <a href="login.html">
-					<span class="icon">
-						<i class="flaticon-profile" aria-hidden="true"></i>
-					</span>
-                Account
-            </a>
-        </div>
-    </div>
-</div>
+
 <a href="#" class="backtotop">
     <i class="pe-7s-angle-up"></i>
 </a>

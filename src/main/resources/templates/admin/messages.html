@@ -57,12 +57,12 @@
             <!-- 菜单 -->
             <ul class="sidebar-nav">
                 <li class="sidebar-nav-link">
-                    <a href="/admin/index1">
+                    <a href="/admin/index1" >
                         <i class="am-icon-home sidebar-nav-link-logo"></i> 管理员管理
                     </a>
                 </li>
                 <li class="sidebar-nav-link">
-                    <a href="/user/index" >
+                    <a href="/user/index">
                         <i class="am-icon-clone sidebar-nav-link-logo"></i> 用户管理
                     </a>
                 </li>
@@ -72,12 +72,12 @@
                     </a>
                 </li>
                  <li class="sidebar-nav-link">
-                    <a href="/catelog/index"  class="active">
+                    <a href="/catelog/index">
                         <i class="am-icon-calendar sidebar-nav-link-logo"></i> 分类管理
                     </a>
                 </li>
                 <li class="sidebar-nav-link">
-                    <a href="/message/index">
+                    <a href="/message/index" class="active">
                         <i class="am-icon-calendar sidebar-nav-link-logo"></i> 留言管理
                     </a>
                 </li>
@@ -94,28 +94,30 @@
                     	<button type="button" class="am-btn btn am-btn-secondary">新增</button>
                         <div class="widget am-cf">
                             <div class="widget-head am-cf">
-                                <div class="widget-title am-fl">分类管理</div>
+                                <div class="widget-title am-fl">用户管理</div>
                             </div>
                             <div class="widget-body  widget-body-lg am-fr">
 
                                 <table width="100%" class="am-table am-table-compact am-table-striped tpl-table-black " id="example-r">
                                     <thead>
                                         <tr>
-                                            <th>id</th>
-                                            <th>分类名称</th>
-
+                                        	<th>id</th>
+                                            <th>用户名</th>
+                                            <th>留言内容</th>
+                                            <th>发布时间</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <tr class="even gradeC" th:each="line : ${list}">
-                                        	<td th:text="${line.catelog_id}"></td>
-                                            <td th:text="${line.catelog_name}"></td>
+                                        	<td th:text="${line.message_id}"></td>
+                                            <td th:text="${line.message_user_name}"></td>
+
+                                            <td th:text="${line.message_texts}"></td>
+                                            <td th:text="${line.message_time}"></td>
                                             <td>
                                                 <div class="tpl-table-black-operation">
-                                                    <a class="btn" source="edit">
-                                                        		 编辑
-                                                    </a>
-                                                    <a th:href="@{/catelog/delete(catelog_id=${line.catelog_id})}" class="tpl-table-black-operation-del">
+
+                                                    <a th:href="@{/message/delete(message_id=${line.message_id})}" class="tpl-table-black-operation-del">
                                                          		 删除
                                                     </a>
                                                 </div>
@@ -126,12 +128,12 @@
                                 </table>
                                 <div class="pagination clearfix style2">
                                     <div class="nav-link">
-                                        <a href="/catelog/index?pageNum=1" class="page-numbers"><i class="icon fa fa-angle-left"
-                                                                            aria-hidden="true"></i>首页</a>
-                                        <a  th:if="${pageInfo.hasPreviousPage}" th:href="@{/catelog/index(pageNum=${pageInfo.pageNum}-1)}" class="page-numbers">上一页</a>
-
-                                        <a th:if="${pageInfo.hasNextPage}" th:href="@{/catelog/index(pageNum=${pageInfo.pageNum}+1)}" class="page-numbers">下一页</a>
-                                        <a th:href="@{/catelog/index(pageNum=${pageInfo.pages})}">尾页</a>
+                                        <a href="/message/index?pageNum=1" class="page-numbers"><i class="icon fa fa-angle-left"
+                                                                                                   aria-hidden="true"></i>首页</a>
+                                        <a  th:if="${pageInfo.hasPreviousPage}" th:href="@{/message/index(pageNum=${pageInfo.pageNum}-1)}" class="page-numbers">上一页</a>
+                                        </li>
+                                        <a th:if="${pageInfo.hasNextPage}" th:href="@{/message/index(pageNum=${pageInfo.pageNum}+1)}" class="page-numbers">下一页</a>
+                                        <a th:href="@{/message/index(pageNum=${pageInfo.pages})}">尾页</a>
                                     </div>
                                 </div>
                             </div>
@@ -150,14 +152,36 @@
       <a href="javascript: void(0)" class="am-close am-close-spin" data-am-modal-close>&times;</a>
     </div>
     <div class="am-modal-bd">
-      	<form enctype="multipart/form-data" class="am-form am-form-horizontal" action="/catelog/update" method="post">
-      	<input type="hidden" id="form_id" name="catelog_id">
+      	<form class="am-form am-form-horizontal" action="/user/update" method="post">
+      	<input type="hidden" id="form_id" name="id">
 		  <div class="am-form-group">
-		    <label for="doc-ipt-3" class="am-u-sm-2 am-form-label">分类名称</label>
+		    <label for="doc-ipt-3" class="am-u-sm-2 am-form-label">名称</label>
 		    <div class="am-u-sm-10">
-		      <input type="text" id="form_name" name="catelog_name" placeholder="输入你的分类名称">
+		      <input type="text" id="form_name" name="username" placeholder="输入你的名称">
 		    </div>
 		  </div>
+		  
+		  <div class="am-form-group">
+		    <label for="doc-ipt-3" class="am-u-sm-2 am-form-label">邮箱</label>
+		    <div class="am-u-sm-10">
+		      <input type="email" id="form_email" name="email" placeholder="输入你的邮箱">
+		    </div>
+		  </div>
+		  
+		  <div class="am-form-group">
+		    <label for="doc-ipt-3" class="am-u-sm-2 am-form-label">余额</label>
+		    <div class="am-u-sm-10">
+		      <input type="number" id="form_balance" name="balance" placeholder="输入余额">
+		    </div>
+		  </div>
+		  
+		  <div class="am-form-group">
+		    <label for="doc-ipt-pwd-2" class="am-u-sm-2 am-form-label">密码</label>
+		    <div class="am-u-sm-10">
+		      <input type="password" id="form_password" name="password" placeholder="输入密码">
+		    </div>
+		  </div>
+		
 		  <div class="am-form-group">
 		    <div class="am-u-sm-12">
 		      <button type="submit" class="am-btn am-btn-danger">保存</button>
@@ -180,6 +204,9 @@
     $('.btn').on('click', function(e) {
       $("#form_id").val(0);
       $("#form_name").val("");
+      $("#form_email").val("");
+      $("#form_balance").val("");
+      $("#form_password").val("");
       
       var $target = $(e.target);
       var source = $target.attr("source");
@@ -187,6 +214,8 @@
           var td = $target.parents("td").siblings("td");
           td && $("#form_id").val($(td[0]).text().trim());
           td && $("#form_name").val($(td[1]).text().trim());
+          td && $("#form_email").val($(td[2]).text().trim());
+          td && $("#form_balance").val($(td[3]).text().trim());
       }
       
       if (($target).hasClass('js-modal-open')) {

@@ -39,7 +39,11 @@ public class gwcController {
      * 添加商品到购物车
      */
     @RequestMapping("/addGoodToGWC")
-    public String addToGWC(@RequestParam(defaultValue = "1") int good_number, int good_id,int good_user_id, Gwc gwc, HttpSession session) {
+    public String addToGWC(@RequestParam(defaultValue = "1") int good_number,
+                           int good_id,
+                           int good_user_id,
+                           Gwc gwc,
+                           HttpSession session) {
         String userName = (String) session.getAttribute("userName");
         User user = userService.selectUserByUserName(userName);
         if(good_user_id==user.getUser_id()){

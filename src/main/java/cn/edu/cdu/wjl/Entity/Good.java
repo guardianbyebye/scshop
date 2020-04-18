@@ -10,7 +10,8 @@ public class Good {
     private int good_user_id;//用户id
     private int good_number;//商品库存
     private int good_status;//0 上架中 1下架中
-    public int getGood_id() {
+    private int good_isRecommend;//0 推荐  1不推荐
+     public int getGood_id() {
         return good_id;
     }
 
@@ -80,5 +81,13 @@ public class Good {
 
     public void setGood_number(int good_number) {
         this.good_number = good_number;
+    }
+
+    public int getGood_isRecommend() {
+        return good_isRecommend;
+    }
+
+    public void setGood_isRecommend(int good_isRecommend) {
+        this.good_isRecommend = good_isRecommend;
     }
 }

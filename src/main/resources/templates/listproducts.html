@@ -29,35 +29,10 @@
         <div class="container">
             <div class="top-bar-left">
                 <div class="header-message">
-                    Welcome to our online store!
+                    欢迎来到二手交易平台
                 </div>
             </div>
             <div class="top-bar-right">
-                <div class="header-language">
-                    <div class="zentimo-language zentimo-dropdown">
-                        <a href="#" class="active language-toggle" data-zentimo="zentimo-dropdown">
-								<span>
-									English (USD)
-								</span>
-                        </a>
-                        <ul class="zentimo-submenu">
-                            <li class="switcher-option">
-                                <a href="#">
-										<span>
-											French (EUR)
-										</span>
-                                </a>
-                            </li>
-                            <li class="switcher-option">
-                                <a href="#">
-										<span>
-											Japanese (JPY)
-										</span>
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
                 <ul class="header-user-links">
                     <li id="loginBtn" >
                         <a th:href="@{/login1}" th:if="${session.userName} == null">登录/注册</a>
@@ -486,7 +461,7 @@
                                         <div class="price">
                                             ￥[[${good.good_price}]]
                                         </div>
-                                        <div>
+                                        <div th:if="${user.user_id}==${good.good_user_id}">
                                             <a th:href="@{/updateGoodInfo(good_id=${good.good_id})}">
                                                 <input class="submit-button" type="button" th:text="编辑">
                                             </a>

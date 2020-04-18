@@ -1,7 +1,7 @@
 ﻿<!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Zentimo - Checkout</title>
+    <title>所有商品</title>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -23,21 +23,16 @@
     <link rel="stylesheet" href="assets/fonts/flaticon/flaticon.css">
     <link rel="stylesheet" href="assets/css/style.css">
 </head>
-<body class="inblog-page">
+<body class="productsgrid-page">
 <header class="header style7">
     <div class="top-bar">
         <div class="container">
             <div class="top-bar-left">
                 <div class="header-message">
-                    欢迎来到二手交易平台
+                    Welcome to our online store!
                 </div>
             </div>
             <div class="top-bar-right">
-                <div class="header-language">
-                    <div class="zentimo-language zentimo-dropdown">
-
-                    </div>
-                </div>
                 <ul class="header-user-links">
                     <li id="loginBtn" >
                         <a th:href="@{/login1}" th:if="${session.userName} == null">登录/注册</a>
@@ -62,14 +57,12 @@
                 </div>
                 <div class="col-lg-7 col-sm-8 col-md-6 col-xs-5 col-ts-12">
                     <div class="block-search-block">
-                        <form class="form-search form-search-width-category" action="/searchGood">
+                        <form class="form-search form-search-width-category">
                             <div class="form-content">
                                 <div class="category">
-                                    <select title="cate"  class="chosen-select"
-                                            tabindex="1" name="optionValue">
-                                        <option value="1">搜索商品</option>
-                                        <option value="2">搜索商家</option>
-
+                                    <select title="cate" data-placeholder="All Categories" class="chosen-select"
+                                            tabindex="1">
+                                        <option value="United States">Accessories</option>
                                     </select>
                                 </div>
                                 <div class="inner">
@@ -105,55 +98,7 @@
                             <a href="javascript:void(0);" data-zentimo="zentimo-dropdown">
                                 <i class="fa fa-user-o" aria-hidden="true"></i>
                             </a>
-                            <div class="header-account zentimo-submenu">
-                                <div class="header-user-form-tabs">
-                                    <ul class="tab-link">
-                                        <li class="active">
-                                            <a data-toggle="tab" aria-expanded="true" href="#header-tab-login">Login</a>
-                                        </li>
-                                        <li>
-                                            <a data-toggle="tab" aria-expanded="true" href="#header-tab-rigister">Register</a>
-                                        </li>
-                                    </ul>
-                                    <div class="tab-container">
-                                        <div id="header-tab-login" class="tab-panel active">
-                                            <form method="post" class="login form-login">
-                                                <p class="form-row form-row-wide">
-                                                    <input type="email" placeholder="Email" class="input-text">
-                                                </p>
-                                                <p class="form-row form-row-wide">
-                                                    <input type="password" class="input-text" placeholder="Password">
-                                                </p>
-                                                <p class="form-row">
-                                                    <label class="form-checkbox">
-                                                        <input type="checkbox" class="input-checkbox">
-                                                        <span>
-																Remember me
-															</span>
-                                                    </label>
-                                                    <input type="submit" class="button" value="Login">
-                                                </p>
-                                                <p class="lost_password">
-                                                    <a href="#">Lost your password?</a>
-                                                </p>
-                                            </form>
-                                        </div>
-                                        <div id="header-tab-rigister" class="tab-panel">
-                                            <form method="post" class="register form-register">
-                                                <p class="form-row form-row-wide">
-                                                    <input type="email" placeholder="Email" class="input-text">
-                                                </p>
-                                                <p class="form-row form-row-wide">
-                                                    <input type="password" class="input-text" placeholder="Password">
-                                                </p>
-                                                <p class="form-row">
-                                                    <input type="submit" class="button" value="Register">
-                                                </p>
-                                            </form>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+
                         </div>
                         <a class="menu-bar mobile-navigation menu-toggle" href="#">
                             <span></span>
@@ -165,16 +110,16 @@
             </div>
         </div>
     </div>
-    <div class="header-nav-container">
+    <div class="header-nav-container rows-space-20">
         <div class="container">
             <div class="header-nav-wapper main-menu-wapper">
                 <div class="vertical-wapper block-nav-categori">
                     <div class="block-title">
-						<span class="icon-bar">
-							<span></span>
-							<span></span>
-							<span></span>
-						</span>
+							<span class="icon-bar">
+								<span></span>
+								<span></span>
+								<span></span>
+							</span>
                         <span class="text">全部分类</span>
                     </div>
                     <div class="block-content verticalmenu-content">
@@ -182,6 +127,8 @@
                             <li class="menu-item" th:each="catelogs:${catelogs}">
                                 <a href="#" class="zentimo-menu-item-title" ><span th:text="${catelogs.catelog_name}"></span></a>
                             </li>
+
+
                         </ul>
                     </div>
                 </div>
@@ -189,41 +136,59 @@
                     <div class="container-wapper">
                         <ul class="zentimo-clone-mobile-menu zentimo-nav main-menu " id="menu-main-menu">
                             <li class="menu-item ">
-                                <a th:href="@{/}" class="zentimo-menu-item-title" title="首页">首页</a>
+                                <a th:href="@{/}" class="zentimo-menu-item-title" title="Home">首页</a>
                                 <span class="toggle-submenu"></span>
 
                             </li>
-                            <li class="menu-item ">
-                                <a th:href="@{/allGoods}" class="zentimo-menu-item-title" title="所有商品">所有商品</a>
+                            <li class="menu-item">
+                                <a th:href="@{/allGoods}" class="zentimo-menu-item-title" title="Shop">所有商品</a>
                                 <span class="toggle-submenu"></span>
 
                             </li>
-                            <li class="menu-item   item-megamenu">
-                                <a th:href="@{/shoppingCart}" class="zentimo-menu-item-title" title="购物车">购物车</a>
+                            <li class="menu-item  menu-item-has-children item-megamenu">
+                                <a href="#" class="zentimo-menu-item-title" title="Pages">Pages</a>
                                 <span class="toggle-submenu"></span>
-
+                                <div class="submenu mega-menu menu-page">
+                                    <div class="row">
+                                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 menu-page-item">
+                                            <div class="zentimo-custommenu default">
+                                                <h2 class="widgettitle">Shop Pages</h2>
+                                            </div>
+                                        </div>
+                                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 menu-page-item">
+                                            <div class="zentimo-custommenu default">
+                                                <h2 class="widgettitle">Product</h2>
+                                            </div>
+                                        </div>
+                                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 menu-page-item">
+                                        </div>
+                                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 menu-page-item">
+                                        </div>
+                                    </div>
+                                </div>
                             </li>
                             <li class="menu-item  menu-item-has-children">
                                 <a href="inblog_right-siderbar.html" class="zentimo-menu-item-title"
-                                   title="商品管理">商品管理</a>
+                                   title="Blogs">商品管理</a>
                                 <span class="toggle-submenu"></span>
                                 <ul class="submenu">
-                                    <li class="menu-item ">
-                                        <a th:href="@{/goodInfo}" class="zentimo-menu-item-title" title="发布商品">发布商品</a>
+                                    <li class="menu-item menu-item-has-children">
+                                        <a th:href="@{/goodInfo}" class="zentimo-menu-item-title" title="Blog Style">发布商品</a>
                                     </li>
-                                    <li class="menu-item ">
-                                        <a th:href="@{/getOwnGoods}" class="zentimo-menu-item-title" title="已发布商品">  已发布商品</a>
+                                    <li class="menu-item menu-item-has-children">
+                                        <a th:href="@{/getOwnGoods}" class="zentimo-menu-item-title" title="Post Layout">查看已发布商品</a>
                                     </li>
                                 </ul>
                             </li>
                             <li class="menu-item">
-                                <a href="/collect" class="zentimo-menu-item-title" title="收藏夹">收藏夹</a>
+                                <a href="about.html" class="zentimo-menu-item-title" title="About">About</a>
                             </li>
                         </ul>
                     </div>
                 </div>
             </div>
         </div>
+    </div>
     </div>
 </header>
 <div class="header-device-mobile">
@@ -267,31 +232,7 @@
                 </a>
                 <div class="block-sub-item">
                     <h5 class="block-item-title">Currency</h5>
-                    <form class="currency-form zentimo-language">
-                        <ul class="zentimo-language-wrap">
-                            <li class="active">
-                                <a href="#">
-											<span>
-												English (USD)
-											</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#">
-											<span>
-												French (EUR)
-											</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#">
-											<span>
-												Japanese (JPY)
-											</span>
-                                </a>
-                            </li>
-                        </ul>
-                    </form>
+
                 </div>
             </div>
         </div>
@@ -304,89 +245,79 @@
         </div>
     </div>
 </div>
-<div class="main-content main-content-checkout">
+<div class="main-content main-content-product no-sidebar">
     <div class="container">
         <div class="row">
             <div class="col-lg-12">
                 <div class="breadcrumb-trail breadcrumbs">
                     <ul class="trail-items breadcrumb">
                         <li class="trail-item trail-begin">
-                            <a href="index.html">Home</a>
+                            <a th:href="@{/}">首页</a>
                         </li>
                         <li class="trail-item trail-end active">
-                            结算
+                            搜索结果
                         </li>
                     </ul>
                 </div>
             </div>
         </div>
-        <h3 class="custom_blog_title">
-            结算
-        </h3>
-        <div class="checkout-wrapp">
-            <form action="/orderPay" method="post">
-            <div class="shipping-address-form-wrapp">
-                <div class="shipping-address-form  checkout-form">
-                    <div class="row-col-1 row-col">
-                        <div class="shipping-address">
-                            <h3 class="title-form">
-                                地址
-                            </h3>
-                            <p class="form-row form-row-first">
-                                <label class="text">姓名</label>
-                                <input title="姓名" type="text" class="input-text" name="real_name" th:value="${address.real_name}">
-                            </p>
-                            <p class="form-row form-row-last">
-                                <label class="text">手机号</label>
-                                <input title="手机号" type="tel" class="input-text" name="phone" th:value="${address.phone}">
-                            </p>
-                            <p class="form-row " >
-                                <label class="text">地址</label>
-                                <input title="address" type="text" class="input-text" name="address_name" th:value="${address.address_name}">
-                            </p>
-                        </div>
-                    </div>
-                    <div class="row-col-2 row-col">
-                        <div class="your-order">
-                            <h3 class="title-form">
-                                你的订单
-                            </h3>
-                            <ul class="list-product-order">
-                                <li class="product-item-order">
-                                    <div class="product-thumb">
-                                        <a href="#">
+        <div class="row">
+            <div class="content-area shop-grid-content full-width col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <div class="site-main">
+
+                    <h3 class="custom_blog_title">
+                        搜索结果
+                    </h3>
+
+                    <ul class="row list-products auto-clear equal-container product-grid">
+                        <li class="product-item  col-lg-3 col-md-4 col-sm-6 col-xs-6 col-ts-12 style-1" th:each="good:${list}">
+                            <div class="product-inner equal-element">
+                                <div class="product-thumb">
+                                    <div class="thumb-inner">
+                                        <a th:href="@{/showGoodDetails(good_id=${good.good_id})}">
                                             <img th:src="@{/assets/images/{goodPhoto}(goodPhoto=${good.good_photo})}" alt="img">
                                         </a>
                                     </div>
-                                    <div class="product-order-inner">
-                                        <h5 class="product-name">
-                                            <a href="#"><span th:text="${good.good_name}"></span></a>
-                                        </h5>
-
+                                </div>
+                                <div class="product-info">
+                                    <h5 class="product-name product_title">
+                                        <a href="#"><span th:text="${good.good_name}"></span></a>
+                                    </h5>
+                                    <div class="group-info">
                                         <div class="price">
-                                            ￥<span th:text="${good.good_price}" id="price"></span>
-                                            <span class="count" id="count">x<span th:text="${buyNumber}"></span></span>
+                                            <ins>
+                                                <span th:text="${good.good_price}"></span>
+                                            </ins>
                                         </div>
                                     </div>
-                                </li>
-                            </ul>
-                            <div class="order-total">
-									<span class="title">
-										总计:
-									</span>
-                                <span class="total-price" id="totalPrice">
-                                           <span th:text="${totalPrice}"></span>
-									</span>
+                                </div>
+                                <div class="loop-form-add-to-cart">
+                                    <form class="cart">
+                                        <div class="single_variation_wrap">
+                                            <div class="quantity">
+                                                <div class="control">
+                                                    <a class="btn-number qtyminus quantity-minus" href="#">-</a>
+                                                    <input type="text" data-step="1" data-min="0" value="1" title="Qty"
+                                                           class="input-qty qty" size="4">
+                                                    <a href="#" class="btn-number qtyplus quantity-plus">+</a>
+                                                </div>
+                                            </div>
+                                            <button class="single_add_to_cart_button button">Add to cart</button>
+                                        </div>
+
+                                    </form>
+                                </div>
                             </div>
-                        </div>
-                    </div>
+                        </li>
+                    </ul>
+
                 </div>
-                <button  class="button button-payment">确认支付 </button>
             </div>
-            </form>
+
         </div>
     </div>
 </div>
+
 
 <a href="#" class="backtotop">
     <i class="pe-7s-angle-up"></i>
@@ -411,12 +342,5 @@
 <script src="assets/js/jquery.scrollbar.min.js"></script>
 <script src='http://ditu.google.cn/maps/api/js?key=AIzaSyC3nDHy1dARR-Pa_2jjPCjvsOR4bcILYsM'></script>
 <script src="assets/js/frontend-plugin.js"></script>
-<script>
-    function f() {
-        var price=document.getElementById("price").innerText;
-        var number=document.getElementById("number").innerText;
-        document.getElementById("totalPrice").innerText=document.write(price*number);
-    }
-</script>
 </body>
 </html>

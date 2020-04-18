@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.edu.cdu.wjl.Dao.collectDao">
+    <insert id="addCollect" parameterType="int">
+        insert into collect(collect_good_id,collect_user_id)
+        values (#{0},#{1})
+    </insert>
+    <select id="selectCollect" resultType="LeftJoin">
+        SELECT
+	      a.good_id,
+	      a.good_name,
+	      a.good_price,
+	      a.good_photo
+        FROM
+	      good a
+        LEFT JOIN collect b ON a.good_id = b.collect_good_id
+        WHERE
+	      b.collect_good_id = any(select collect.collect_good_id FROM collect  WHERE collect.collect_user_id=#{collect_user_id})
+    </select>
+    <delete id="deleteCollect" parameterType="int">
+        delete from collect where collect_good_id=#{0} and collect_user_id=#{1}
+    </delete>
+</mapper>

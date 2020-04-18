@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.edu.cdu.wjl.Dao.orderDao">
+    <insert id="insertOrder" parameterType="Order">
+        insert into order1(order_good_id,order_user_id,status,order_number,create_time,buy_number)
+        values (#{order_good_id},#{order_user_id},0,#{order_number},#{create_time},#{buy_number})
+    </insert>
+</mapper>

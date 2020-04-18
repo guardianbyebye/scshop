@@ -20,4 +20,7 @@
     <update id="updateUserPwd" parameterType="String">
         update user set user_pwd=#{oldPwd} where user_name=#{userName}
     </update>
+    <select id="selectUser" parameterType="String" resultType="User">
+        select * from user where user_name like CONCAT('%',#{user_name},'%');
+    </select>
 </mapper>

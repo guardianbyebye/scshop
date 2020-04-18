@@ -264,7 +264,7 @@
                     </li>
                     <li class="trail-item trail-end active">
 							<span>
-								购物车
+								收藏夹
 							</span>
                     </li>
                 </ul>
@@ -272,7 +272,7 @@
             <div class="row">
                 <div class="main-content-cart main-content col-sm-12">
                     <h3 class="custom_blog_title">
-                        购物车
+                        收藏夹
                     </h3>
                     <div class="page-main-content">
                         <div class="shoppingcart-content">
@@ -291,7 +291,7 @@
                                     <tbody>
                                     <tr class="cart_item" th:each="line:${list}">
                                         <td class="product-remove">
-                                            <a th:href="@{/deleteGoodById(good_id=${line.good_id})}" class="remove"></a>
+                                            <a th:href="@{/deleteCollect(good_id=${line.good_id})}" class="remove"></a>
                                         </td>
                                         <td class="product-thumbnail">
                                             <a th:href="@{/showGoodDetails(good_id=${line.good_id})}">
@@ -320,29 +320,13 @@
                                     </tr>
 
                                     <tr>
-                                        <td class="actions">
 
-                                            <div class="order-total">
-														<span class="title">
-															Total Price:
-														</span>
-                                                <span class="total-price">
-															$95
-														</span>
-                                            </div>
                                         </td>
                                     </tr>
                                     </tbody>
                                 </table>
                             </form>
-                            <div class="control-cart">
-                                <button class="button btn-continue-shopping">
-                                    CONTINUE SHOPPING
-                                </button>
-                                <button class="button btn-cart-to-checkout">
-                                    CHECK OUT
-                                </button>
-                            </div>
+
                         </div>
                     </div>
                 </div>

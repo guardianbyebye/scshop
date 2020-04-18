@@ -1,6 +1,6 @@
 package cn.edu.cdu.wjl.Entity;
 
-public class collect {
+public class Collect {
     private int collect_id;//收藏id
     private int collect_good_id;//商品id
     private int collect_user_id;//用户id
